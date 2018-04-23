@@ -1,0 +1,60 @@
+
+
+  <form #form="ngForm" (ngSubmit)="registraion(form.value)" novalidate>
+    <div class="form-group">
+      <label for="username">User Name
+        <span class="req">*</span>
+      </label>
+      <input type="text" name="username" minlength="4" maxlength="30" #nameRefe="ngModel"  class="form-control" [(ngModel)]="username" required>
+      <div *ngIf="nameRefe.errors && (nameRefe.dirty || nameRefe.touched)" class="alert alert-danger">
+        <div *ngIf="nameRefe.errors.required">
+          Please Enter a User Name
+        </div>
+        <div *ngIf="nameRefe.errors.minlength">
+          Please Enter atleast 4 characters
+        </div>
+      </div>
+      <div class="form-group">
+          <label for="email">Email
+              <span class="req">*</span>
+            </label>
+          <input type="text" #emailRef="ngModel" required  pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" name="email" [(ngModel)]="email">
+           <div *ngIf="emailRef.errors && (emailRef.dirty || emailRef.touched)" class="alert alert-danger">
+            <div *ngIf="emailRef.errors.required">
+              Please Enter a Email
+            </div>
+            <div *ngIf="emailRef.errors && emailRef.errors.pattern">
+              Please Enter valid Email
+            </div>
+          </div>
+       
+       
+       
+        </div>
+      <div class="form-group">
+          <label for="password">Password
+              <span class="req">*</span>
+            </label>
+          <input type="password" #passwordRef="ngModel"  pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$" required minlength="8"  class="form-control" name="password" [(ngModel)]="password">
+         <div *ngIf="passwordRef.errors && (passwordRef.dirty || passwordRef.touched)" class="alert alert-danger">
+            <div *ngIf="passwordRef.errors.required">
+              Please Enter a Password
+            </div>
+            <div *ngIf="passwordRef.errors.minlength">
+              Please Enter atleast 8 characters
+            </div>
+            <div *ngIf="passwordRef.errors && passwordRef.errors.pattern">
+                Password Minimum eight characters, at least one letter, one number and one special character
+              </div>
+           
+          </div>
+        
+        </div>
+    </div>
+
+
+
+
+    <input type="submit" value="Submit" [disabled]="!form.valid">
+  </form>
+
